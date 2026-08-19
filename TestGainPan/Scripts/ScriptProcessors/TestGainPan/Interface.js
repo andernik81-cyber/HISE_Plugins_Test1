@@ -1,6 +1,7 @@
 Content.makeFrontInterface(700, 360);
 
-const var VolumePan = Synth.getEffect("VolumePan");
+const var VolumeProcessor = Synth.getEffect("Volume");
+const var PanProcessor = Synth.getEffect("Pan");
 
 const var Background = Content.addPanel("Background", 0, 0);
 Background.set("width", 700);
@@ -28,7 +29,7 @@ Volume.set("mode", "Decibel");
 Volume.set("saveInPreset", true);
 Volume.set("isPluginParameter", true);
 Volume.set("pluginParameterName", "Volume");
-Volume.set("processorId", "VolumePan");
+Volume.set("processorId", "Volume");
 Volume.set("parameterId", "Gain");
 
 const var Pan = Content.addKnob("Pan", 322, 88);
@@ -43,7 +44,7 @@ Pan.set("mode", "Pan");
 Pan.set("saveInPreset", true);
 Pan.set("isPluginParameter", true);
 Pan.set("pluginParameterName", "Pan");
-Pan.set("processorId", "VolumePan");
+Pan.set("processorId", "Pan");
 Pan.set("parameterId", "Balance");
 
 const var Meter = Content.addPanel("Meter", 580, 62);
@@ -56,13 +57,13 @@ Meter.set("tooltip", "Stereo output peak");
 Meter.setPaintRoutine(function(g)
 {
     var h = this.getHeight();
+    var meterH = h - 54;
     var leftPeak = Math.max(0.0, Math.min(1.0, Engine.getMasterPeakLevel(0)));
     var rightPeak = Math.max(0.0, Math.min(1.0, Engine.getMasterPeakLevel(1)));
-    var levelL = Engine.getDecibelsForGainFactor(Math.max(0.000001, leftPeak));
-    var levelR = Engine.getDecibelsForGainFactor(Math.max(0.000001, rightPeak));
-    var normL = (Math.max(-60.0, levelL) + 60.0) / 60.0;
-    var normR = (Math.max(-60.0, levelR) + 60.0) / 60.0;
-    var meterH = h - 54;
+    var dbL = Engine.getDecibelsForGainFactor(Math.max(0.000001, leftPeak));
+    var dbR = Engine.getDecibelsForGainFactor(Math.max(0.000001, rightPeak));
+    var normL = (Math.max(-60.0, dbL) + 60.0) / 60.0;
+    var normR = (Math.max(-60.0, dbR) + 60.0) / 60.0;
 
     g.setColour(0xFF2A2E35);
     g.fillRect([12, 30, 24, meterH]);
