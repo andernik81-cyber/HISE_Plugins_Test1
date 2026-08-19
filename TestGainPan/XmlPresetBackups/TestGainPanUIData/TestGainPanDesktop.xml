@@ -2,5 +2,5 @@
 
 <ContentProperties DeviceType="Desktop">
   <Component type="ScriptSlider" id="Volume" x="110.0" y="150.0" style="Knob" middlePosition="0.0" stepSize="0.01" min="0.0" max="2.0" suffix="" filmstripImage="Use default skin" linkedTo="" processorId="Volume" parameterId="Gain" text="VOLUME" showTextBox="true"/>
-  <Component type="ScriptSlider" id="Pan" x="330.0" y="150.0" style="Knob" middlePosition="0.5" stepSize="0.01" min="0.0" max="1.0" suffix="" filmstripImage="Use default skin" linkedTo="" processorId="Pan" parameterId="Balance" text="PAN" showTextBox="true"/>
+  <Component type="ScriptSlider" id="Pan" x="330.0" y="150.0" style="Knob" middlePosition="0.0" stepSize="0.01" min="-1.0" max="1.0" suffix="" filmstripImage="Use default skin" linkedTo="" processorId="Pan" parameterId="Balance" text="PAN" showTextBox="true"/>
 </ContentProperties>
