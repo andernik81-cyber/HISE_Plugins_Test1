@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Processor Type="SynthChain" ID="GainPan1" Bypassed="0" Gain="1.0" Balance="0.0"
+<Processor Type="SynthChain" ID="TestGainPan" Bypassed="0" Gain="1.0" Balance="0.0"
            VoiceLimit="64.0" KillFadeTime="20.0" IconColour="0" packageName=""
            BuildVersion="650">
   <ChildProcessors>
     <Processor Type="MidiProcessorChain" ID="Midi Processor" Bypassed="0">
-      <ChildProcessors/>
+      <ChildProcessors>
+        <Processor Type="ScriptProcessor" ID="Interface" Bypassed="0">
+          <ChildProcessors/>
+          <Content/>
+          <UIData Source="TestGainPanUIData"/>
+        </Processor>
+      </ChildProcessors>
     </Processor>
     <Processor Type="ModulatorChain" ID="GainModulation" Bypassed="0" Intensity="1.0">
       <ChildProcessors/>
