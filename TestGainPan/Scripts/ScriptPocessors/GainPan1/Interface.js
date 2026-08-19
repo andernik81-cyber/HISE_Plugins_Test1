@@ -18,7 +18,6 @@ if(!isDefined(existingMeter))
 
 const var VolumeFX = Synth.getEffect("Volume");
 const var PanFX = Synth.getEffect("Pan");
-const var MeterFX = Synth.getEffect("OutputMeter");
 
 // Background
 const var Background = Content.addPanel("Background", 0, 0);
@@ -70,7 +69,8 @@ Pan.set("processorId", "Pan");
 Pan.set("parameterId", "Pan");
 Pan.set("textColour", 0xFFE8E8E8);
 
-// Output meter: display only, not a plugin parameter.
+// Output meter. Display-only: it is not a plugin parameter.
+// The master peak reports the final stereo output after Volume and Pan.
 const var Meter = Content.addPanel("Meter", 585, 72);
 Meter.set("width", 82);
 Meter.set("height", 250);
@@ -80,12 +80,13 @@ Meter.set("tooltip", "Stereo output peak");
 
 Meter.setPaintRoutine(function(g)
 {
-    var w = this.getWidth();
     var h = this.getHeight();
-    var left = Math.max(-60.0, Math.min(0.0, Engine.getValueForMode(MeterFX.getCurrentLevel(true), "Decibel")));
-    var right = Math.max(-60.0, Math.min(0.0, Engine.getValueForMode(MeterFX.getCurrentLevel(false), "Decibel")));
-    var leftNorm = (left + 60.0) / 60.0;
-    var rightNorm = (right + 60.0) / 60.0;
+    var leftPeak = Math.max(0.000001, Engine.getMasterPeakLevel(0));
+    var rightPeak = Math.max(0.000001, Engine.getMasterPeakLevel(1));
+    var leftDb = Math.max(-60.0, Math.min(0.0, 20.0 * Math.log(leftPeak) / Math.log(10.0)));
+    var rightDb = Math.max(-60.0, Math.min(0.0, 20.0 * Math.log(rightPeak) / Math.log(10.0)));
+    var leftNorm = (leftDb + 60.0) / 60.0;
+    var rightNorm = (rightDb + 60.0) / 60.0;
 
     g.setColour(0xFF2A2E35);
     g.fillRect([10, 26, 24, h - 52]);
@@ -107,7 +108,7 @@ Meter.setTimerCallback(function()
 });
 Meter.startTimer(40);
 
-// Keep the parameter ranges explicit and stable for HISE / host automation.
+// Keep the parameter connections explicit and stable.
 Volume.set("processorId", "Volume");
 Volume.set("parameterId", "Gain");
 Pan.set("processorId", "Pan");
