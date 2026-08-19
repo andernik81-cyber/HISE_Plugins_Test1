@@ -1,0 +1,14 @@
+# HISE build output
+Binaries/
+
+# HISE generated pooled resources
+PooledResources/
+
+# HISE binary preset files
+*.hip
+
+# OS / editor junk
+Thumbs.db
+.DS_Store
+*.tmp
+*.temp
