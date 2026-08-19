@@ -6,7 +6,10 @@
       <ChildProcessors>
         <Processor Type="ScriptProcessor" ID="Interface" Bypassed="0">
           <ChildProcessors/>
-          <Content/>
+          <Content>
+            <Control type="ScriptSlider" id="Volume" value="1.0"/>
+            <Control type="ScriptSlider" id="Pan" value="0.5"/>
+          </Content>
           <UIData Source="TestGainPanUIData"/>
         </Processor>
       </ChildProcessors>
